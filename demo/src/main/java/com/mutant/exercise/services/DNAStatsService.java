@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class DNAStatsService {
     private static final Logger log = LoggerFactory.getLogger(DNAStatsService.class);
-    
+
 }
