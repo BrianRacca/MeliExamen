@@ -1,8 +1,11 @@
 package com.mutant.exercise.services;
 
+import com.mutant.exercise.config.DNAProperties;
 import com.mutant.exercise.dao.DNADao;
 import com.mutant.exercise.exception.DNAValidationException;
 import com.mutant.exercise.model.DNA;
+import com.mutant.exercise.services.scanner.DiagonalDownSequence;
+import com.mutant.exercise.services.scanner.DiagonalUpSequence;
 import com.mutant.exercise.services.scanner.HorizontalSequence;
 import com.mutant.exercise.services.scanner.VerticalSequence;
 import org.slf4j.Logger;
@@ -17,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import static com.mutant.exercise.config.DNAProperties.*;
 import static com.mutant.exercise.exception.DNAValidationException.errorMatch;
 import static com.mutant.exercise.exception.DNAValidationException.errorSize;
 
@@ -57,14 +61,33 @@ public class DNAService {
             return response(existingDNA.get().isMutant());
         }
 
-        int horizontalSequences = new HorizontalSequence(dna.getSequence()).isMutant();
-        int verticalSequences = new VerticalSequence(dna.getSequence()).isMutant();
-
-        final boolean mutant = (horizontalSequences + verticalSequences) >= 2;
+        final boolean mutant = match(dna);
         dna.setMutant(mutant);
         dnaDao.insertDNA(dna);
 
         return response(mutant);
+    }
+
+    private boolean match(DNA dna) {
+        int totalSecuences = 0;
+
+        final int horizontalSequences = new HorizontalSequence(dna.getSequence()).isMutant();
+        totalSecuences+=horizontalSequences;
+        if(totalSecuences >= SEQUENCES_MUTANT) return true;
+
+        final int verticalSequences = new VerticalSequence(dna.getSequence()).isMutant();
+        totalSecuences+=verticalSequences;
+        if(totalSecuences >= SEQUENCES_MUTANT) return true;
+
+        final int diagonalUpSequences = new DiagonalUpSequence(dna.getSequence()).isMutant();
+        totalSecuences+=diagonalUpSequences;
+        if(totalSecuences >= SEQUENCES_MUTANT) return true;
+
+        final int diagonalDownSequences = new DiagonalDownSequence(dna.getSequence()).isMutant();
+        totalSecuences+=diagonalDownSequences;
+        if(totalSecuences >= SEQUENCES_MUTANT) return true;
+
+        return false;
     }
 
     private ResponseEntity<Void> response(boolean mutant) {

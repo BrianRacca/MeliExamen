@@ -18,7 +18,7 @@ import java.util.UUID;
 public class MySqlDNADaoImpl implements DNADao {
 
     @Autowired
-    private JdbcTemplate jdbcTemplate = new JdbcTemplate();
+    private final JdbcTemplate jdbcTemplate = new JdbcTemplate();
 
     //Revisar esto esta mal
     @Override
@@ -60,7 +60,6 @@ public class MySqlDNADaoImpl implements DNADao {
     private static class DNAMapper implements RowMapper<DNA> {
         @Override
         public DNA mapRow(ResultSet resultSet, int i) throws SQLException {
-            final UUID id = UUID.fromString(resultSet.getString("id"));
             final Array a = resultSet.getArray("sequence");
             final String[] b = (String[]) a.getArray();
             final List<String> sequence = Arrays.asList(b);
