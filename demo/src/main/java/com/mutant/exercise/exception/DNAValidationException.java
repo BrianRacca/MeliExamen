@@ -8,10 +8,10 @@ public class DNAValidationException extends DNAException {
 
     private static final long serialVersionUID = 9138142099883351082L;
 
-    private static final String errorSize = "The sequence is not NxN format";
+    public static final String errorSize = "The sequence is not NxN format";
     public static final String errorMatch = "The sequence is not NxN format";
 
-    public DNAValidationException() {
-        super(errorSize, HttpStatus.BAD_REQUEST, ZonedDateTime.now());
+    public DNAValidationException(String error) {
+        super(error, HttpStatus.BAD_REQUEST, ZonedDateTime.now());
     }
 }

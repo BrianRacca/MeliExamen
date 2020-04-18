@@ -3,6 +3,7 @@ package com.mutant.exercise.api;
 import com.mutant.exercise.model.DNA;
 import com.mutant.exercise.services.DNAService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,7 +40,7 @@ public class DNAController {
     }
 
     @PostMapping
-    public boolean isMutant(@Valid @NonNull @RequestBody DNA dna) {
+    public ResponseEntity<Void> isMutant(@Valid @NonNull @RequestBody DNA dna) {
         return dnaService.isMutant(dna);
     }
 }

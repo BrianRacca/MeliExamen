@@ -15,7 +15,7 @@ public class FakeDNADaoImpl implements DNADao {
     @Override
     public int insertDNA(DNA dna) {
         final DNA newDNA = new DNA(dna.getSequence());
-        newDNA.setMutant(true);
+        newDNA.setMutant(dna.isMutant());
         DB.add(newDNA);
         return 1;
     }
