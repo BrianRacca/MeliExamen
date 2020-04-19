@@ -43,7 +43,7 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/api/v1/dna").contentType(MediaType.APPLICATION_JSON).content(request))
+		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(MockMvcResultMatchers.status().isForbidden());
 	}

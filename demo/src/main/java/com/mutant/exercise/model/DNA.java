@@ -2,14 +2,20 @@ package com.mutant.exercise.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
+@Entity
 public class DNA {
 
-    private final int id;
+    @Id
+    private int id;
 
-    private final @NotEmpty(message = "Sequence cannot be null or empty") List<String> sequence;
+    @ElementCollection
+    private @NotEmpty(message = "Sequence cannot be null or empty") List<String> sequence;
 
     private boolean mutant;
 
@@ -17,6 +23,8 @@ public class DNA {
         this.sequence = sequence;
         id = sequence.hashCode();
     }
+
+    public DNA(){}
 
     public int getId() {
         return id;
