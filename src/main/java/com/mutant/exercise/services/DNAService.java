@@ -69,18 +69,22 @@ public class DNAService {
         int totalSecuences = 0;
 
         final int horizontalSequences = new HorizontalSequence(dna.getSequence()).isMutant();
+        log.info("HorizontalSequences found: " + horizontalSequences);
         totalSecuences+=horizontalSequences;
         if(totalSecuences >= SEQUENCES_MUTANT) return true;
 
         final int verticalSequences = new VerticalSequence(dna.getSequence()).isMutant();
+        log.info("VerticalSequences found : " + verticalSequences);
         totalSecuences+=verticalSequences;
         if(totalSecuences >= SEQUENCES_MUTANT) return true;
 
         final int diagonalUpSequences = new DiagonalUpSequence(dna.getSequence()).isMutant();
+        log.info("DiagonalUpSequences found: " + diagonalUpSequences);
         totalSecuences+=diagonalUpSequences;
         if(totalSecuences >= SEQUENCES_MUTANT) return true;
 
         final int diagonalDownSequences = new DiagonalDownSequence(dna.getSequence()).isMutant();
+        log.info("DiagonalDownSequences found: " + diagonalDownSequences);
         totalSecuences+=diagonalDownSequences;
         if(totalSecuences >= SEQUENCES_MUTANT) return true;
 

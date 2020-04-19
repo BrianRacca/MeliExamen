@@ -1,5 +1,6 @@
 package com.mutant.exercise;
 
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +21,7 @@ class MutantsApplicationTests {
 	@Autowired
 	protected WebApplicationContext wac;
 
-	protected void setup() throws Exception {
+	protected void setup() {
 		mvc = MockMvcBuilders.webAppContextSetup(wac).build();
 	}
 
@@ -29,16 +30,78 @@ class MutantsApplicationTests {
 	}
 
 	@Test
-	void test() throws Exception {
+	void testMutant01() throws Exception {
 		setup();
 		final String request = "{\n"+
 				"\"dna\": " +
-				"        [\"ACCTATC\",\n" +
-				"         \"CTCACTT\",\n" +
-				"         \"ACGCTAT\",\n" +
-				"         \"ACCTACC\",\n" +
-				"         \"CAATTCC\",\n" +
-				"         \"CACCAAT\",\n" +
+				"        [\"ATGCGA\",\n" +
+				"         \"CAGTGC\",\n" +
+				"         \"TTATGT\",\n" +
+				"         \"AGAAGG\",\n" +
+				"         \"CCCCTA\",\n" +
+				"         \"TCACTG\"" +
+				"        ]\n" +
+				"}";
+
+		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(MockMvcResultMatchers.status().isOk());
+	}
+
+	@Test
+	void testMutant02() throws Exception {
+		setup();
+		final String request = "{\n"+
+				"\"dna\": " +
+				"        [\"ATGCGAATGCGA\",\n" +
+				"         \"CAGTGCCAGTGC\",\n" +
+				"         \"CAGTGCCAGTGC\",\n" +
+				"         \"CAGTGCCAGTGC\",\n" +
+				"         \"TTATGTTTATGT\",\n" +
+				"         \"TTATGTTTATGT\",\n" +
+				"         \"TTATGTTTATGT\",\n" +
+				"         \"TTATGTTTATGT\",\n" +
+				"         \"TTATGTTTATGT\",\n" +
+				"         \"AGAAGGAGAAGG\",\n" +
+				"         \"CCCCTACCCCTA\",\n" +
+				"         \"TCACTGTCACTG\"" +
+				"        ]\n" +
+				"}";
+
+		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(MockMvcResultMatchers.status().isOk());
+	}
+
+	@Test
+	void testHuman01() throws Exception {
+		setup();
+		final String request = "{\n"+
+				"\"dna\": " +
+				"        [\"ACCTA\",\n" +
+				"         \"CTCAC\",\n" +
+				"         \"ACGCT\",\n" +
+				"         \"ACCTA\",\n" +
+				"         \"CAACA\"" +
+				"        ]\n" +
+				"}";
+
+		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
+				.andDo(MockMvcResultHandlers.print())
+				.andExpect(MockMvcResultMatchers.status().isForbidden());
+	}
+
+	@Test
+	void testHuman02() throws Exception {
+		setup();
+		final String request = "{\n"+
+				"\"dna\": " +
+				"        [\"ACCTAAT\",\n" +
+				"         \"CTCACTA\",\n" +
+				"         \"CGGCTAT\",\n" +
+				"         \"ACCAATA\",\n" +
+				"         \"ATCTCTA\",\n" +
+				"         \"ACCTATA\",\n" +
 				"         \"CAACAAT\"" +
 				"        ]\n" +
 				"}";
@@ -47,5 +110,7 @@ class MutantsApplicationTests {
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(MockMvcResultMatchers.status().isForbidden());
 	}
+
+
 
 }
