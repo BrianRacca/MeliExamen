@@ -15,33 +15,40 @@ public class DiagonalUpSequence extends DNAScanner {
 
     @Override
     public void next() {
-        //If i reach 0, iInicial it´s not the limit so i continue
+        //Skip to nextline if no iterations were found and iInicial is at it´s limit and we haven´t found more than 1 iteration
+        if(iInicial == sequence.size()-1 && iCoordinate-jCoordinate < DNAProperties.MUTANT_ADN_SEQUENCE-1 && iterations<1){
+            nextLine();
+            return;
+        }
+        //If i reach 0 and iInicial it´s not the limit so i continue
         if(iCoordinate == 0 && iInicial!=sequence.size()-1) {
-            iInicial++;
-            iCoordinate=iInicial;
-            jCoordinate=0;
-
+            resetNext();
             reset();
         //When i reach the extreme diagonal of the matrix i have to start going down again with jCoordinate++
         }else if(iCoordinate == 0 || jCoordinate==sequence.size()-1) {
-            iCoordinate=iInicial;
-            jInicial++;
-            jCoordinate=jInicial;
-
+            nextLine();
             reset();
-        }else {
+
+              //Skip to next line before we reach the iCoordinate limit and jCoordinate starts to move right
+        }else if(iCoordinate< DNAProperties.MUTANT_ADN_SEQUENCE-1 && iterations <=1) resetNext();
+        else {
             //How to move in diagonalUp Sequence
             iCoordinate--;
             jCoordinate++;
         }
     }
 
-    /**
-     * Reset variables so i dont get another unexpected match
-     */
-    public void reset() {
-        letter="";
-        iterations=0;
+    private void nextLine() {
+        iCoordinate = iInicial;
+        jInicial++;
+        jCoordinate = jInicial;
+    }
+
+    @Override
+    public void resetNext() {
+        iInicial++;
+        iCoordinate=iInicial;
+        jCoordinate=0;
     }
 
     @Override

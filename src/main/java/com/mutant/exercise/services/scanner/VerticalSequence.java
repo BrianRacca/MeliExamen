@@ -20,13 +20,12 @@ public class VerticalSequence extends DNAScanner {
         else resetNext();
     }
 
+    @Override
     public void resetNext() {
         jCoordinate++;
         iCoordinate=0;
 
-        //Reset
-        iterations=0;
-        letter="";
+        reset();
     }
 
     @Override

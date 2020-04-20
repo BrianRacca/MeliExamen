@@ -56,6 +56,19 @@ public abstract class DNAScanner {
     public abstract void load();
 
     /**
+     * skip iteration to next probably sequence
+     */
+    public abstract void resetNext();
+
+    /**
+     * reset variables so i dont get another unexpected match
+     */
+    public void reset() {
+        letter = "";
+        iterations = 0;
+    }
+
+    /**
      * depending the object implementation will find in a determined way for sequences
      *
      * @return true if found sequence pattern defined

@@ -21,13 +21,12 @@ public class HorizontalSequence extends DNAScanner {
               else resetNext();
     }
 
+    @Override
     public void resetNext() {
         iCoordinate++;
         jCoordinate=0;
 
-        //Reset
-        iterations=0;
-        letter="";
+        reset();
     }
 
     @Override

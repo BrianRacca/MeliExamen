@@ -253,6 +253,12 @@ class MutantsApplicationTests {
 		assertThat(lastList.size()).isEqualTo(firstList.size()+1);
 	}
 
+	/**
+	 * Check random dna
+	 *
+	 * @throws Exception
+	 *
+	 */
 	@Test
 	void testHuman01() throws Exception {
 		final String request = "{\n"+
@@ -306,7 +312,7 @@ class MutantsApplicationTests {
 	 * @test sequence with only 1 sequence horizontal
 	 */
 	@Test
-	void testHuman04() throws Exception {
+	void testHumanHorizontal() throws Exception {
 		final String request = "{\n"+
 				"\"dna\": " +
 				"        [\"AAAAC\",\n" +
@@ -325,7 +331,7 @@ class MutantsApplicationTests {
 	 * @test sequence with only 1 sequence vertical
 	 */
 	@Test
-	void testHuman05() throws Exception {
+	void testHumanVertical() throws Exception {
 		final String request = "{\n"+
 				"\"dna\": " +
 				"        [\"AACAC\",\n" +
@@ -344,7 +350,7 @@ class MutantsApplicationTests {
 	 * @test sequence with only 1 sequence diagonal up
 	 */
 	@Test
-	void testHuman06() throws Exception {
+	void testHumanDiagonalUp() throws Exception {
 		final String request = "{\n"+
 				"\"dna\": " +
 				"        [\"AACAC\",\n" +
@@ -363,7 +369,7 @@ class MutantsApplicationTests {
 	 * @test sequence with only 1 diagonal down
 	 */
 	@Test
-	void testHuman07() throws Exception {
+	void testHumanDiagonalDown() throws Exception {
 		final String request = "{\n"+
 				"\"dna\": " +
 				"        [\"AACAC\",\n" +

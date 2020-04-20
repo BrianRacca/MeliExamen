@@ -51,6 +51,11 @@ public class DiagonalDownSequence extends DNAScanner {
         jInicial = 0;
     }
 
+    @Override
+    public void resetNext() {
+
+    }
+
     public DiagonalDownSequence(List<String> dna) {
         sequence = dna;
     }
