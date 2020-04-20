@@ -14,11 +14,11 @@ public class DNAStats {
     private int id;
 
     @NonNull
-    @JsonProperty("count_human_dna")
+    @JsonProperty("count_mutant_dna")
     private int mutantCount;
 
     @NonNull
-    @JsonProperty("count_mutant_dna")
+    @JsonProperty("count_human_dna")
     private int humanCount;
 
     @Transient
