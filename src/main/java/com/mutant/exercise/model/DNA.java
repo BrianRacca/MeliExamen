@@ -1,6 +1,7 @@
 package com.mutant.exercise.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -15,8 +16,10 @@ public class DNA {
     private int id;
 
     @ElementCollection
+    @NonNull
     private @NotEmpty(message = "Sequence cannot be null or empty") List<String> sequence;
 
+    @NonNull
     private boolean mutant;
 
     public DNA(@JsonProperty("dna") List<String> sequence) {

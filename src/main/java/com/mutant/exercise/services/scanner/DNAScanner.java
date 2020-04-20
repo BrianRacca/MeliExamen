@@ -19,6 +19,8 @@ public abstract class DNAScanner {
 
     public int iterations;
 
+    public String letter = "";
+
     public List<String> sequence = new ArrayList<>();
 
     public abstract boolean hasNext();
@@ -30,7 +32,6 @@ public abstract class DNAScanner {
     public int isMutant() {
         load();
 
-        String letter = "";
         while(hasNext()) {
             final String actualLetter = Character.toString(sequence.get(iCoordinate).charAt(jCoordinate));
             letter = letter.equals("") ? actualLetter : letter;

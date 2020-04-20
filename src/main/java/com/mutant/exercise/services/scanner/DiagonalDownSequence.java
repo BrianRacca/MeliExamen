@@ -16,6 +16,10 @@ public class DiagonalDownSequence extends DNAScanner {
             iInicial--;
             iCoordinate=iInicial;
             jCoordinate=0;
+
+            //Reset
+            letter="";
+            iterations=0;
         }else if(iCoordinate == 0 && iInicial==0) {
             iCoordinate++;
             jCoordinate++;
@@ -25,6 +29,10 @@ public class DiagonalDownSequence extends DNAScanner {
                 iCoordinate=iInicial;
                 jInicial++;
                 jCoordinate=jInicial;
+
+                //Reset
+                letter="";
+                iterations=0;
             }else {
                 iCoordinate++;
                 jCoordinate++;

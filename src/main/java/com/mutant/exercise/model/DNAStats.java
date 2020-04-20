@@ -1,9 +1,11 @@
 package com.mutant.exercise.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.lang.NonNull;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
-import java.math.BigDecimal;
 
 @Entity
 public class DNAStats {
@@ -11,20 +13,33 @@ public class DNAStats {
     @Id
     private int id;
 
-    private int humanCount;
-
+    @NonNull
+    @JsonProperty("count_human_dna")
     private int mutantCount;
 
-    @Transient
-    private Double ratio;
+    @NonNull
+    @JsonProperty("count_mutant_dna")
+    private int humanCount;
 
-    public DNAStats(int humanCount, int mutantCount, Double ratio) {
+    @Transient
+    private double ratio;
+
+    public DNAStats(int humanCount, int mutantCount) {
         this.humanCount = humanCount;
         this.mutantCount = mutantCount;
-        this.ratio = ratio;
+        ratio = 0;
     }
 
     public DNAStats(){}
+
+    /**
+     * @return calculates the ratio of Mutants (Mutants/Humans).
+     */
+    public double getRatio() {
+        if(humanCount == 0) return mutantCount;
+        if(mutantCount == 0) return 0;
+        else return (double)mutantCount/(double)humanCount;
+    }
 
     public int getHumanCount() {
         return humanCount;
@@ -34,7 +49,4 @@ public class DNAStats {
         return mutantCount;
     }
 
-    public Double getRatio() {
-        return (double)mutantCount/(double)humanCount;
-    }
 }

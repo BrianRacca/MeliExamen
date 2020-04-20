@@ -26,9 +26,6 @@ public class DNAController {
         this.dnaService = dnaService;
     }
 
-    //@PostMapping
-    //public void addDNA(@Valid @NonNull @RequestBody DNA dna) { dnaService.addDNA(dna); }
-
     @GetMapping
     public List<DNA> listAllDNA() {
         return dnaService.listAllDNA();

@@ -10,10 +10,16 @@ public class VerticalSequence extends DNAScanner {
 
     @Override
     public void next() {
-        if(iCoordinate < sequence.size()-1) iCoordinate++;
+        if(iCoordinate < sequence.size()-1){
+            iCoordinate++;
+        }
         else {
             jCoordinate++;
             iCoordinate=0;
+
+            //Reset
+            iterations=0;
+            letter="";
         }
     }
 

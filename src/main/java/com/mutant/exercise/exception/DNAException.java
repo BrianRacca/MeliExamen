@@ -31,10 +31,4 @@ public class DNAException extends RuntimeException {
         return zonedDateTime;
     }
 
-
-    public static final String errorLength = "dna.sequence.length";
-    public static final String errorMatch = "dna.sequence.match";
-    public static final String errorLengthDesc = "The sequence is not NxN format";
-    public static final String errorMatchDesc = "The sequence does not match with nitrogen base pattern (A,T,G,C)";
-
 }

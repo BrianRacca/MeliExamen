@@ -14,6 +14,10 @@ public class HorizontalSequence extends DNAScanner {
         else {
             iCoordinate++;
             jCoordinate=0;
+
+            //Reset
+            iterations=0;
+            letter="";
         }
     }
 

@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -47,11 +48,15 @@ public class DNAService {
         return dnaDaoImpl.findById(id);
     }
 
-    public ResponseEntity<Void> isMutant(DNA dna) {
-        validateDNA(dna);
+    public ResponseEntity<Void> isMutant(DNA argDna) {
+        validateDNA(argDna);
+
+        // If the DNA is correct we transform it to upper case
+        List<String> dna = new ArrayList<>();
+        argDna.getSequence().forEach(s -> dna.add(s.toUpperCase()));
 
         // We verify if the DNA was processed before
-        final int id = dna.getSequence().hashCode();
+        final int id = dna.hashCode();
         final Optional<DNA> existingDNA = dnaDaoImpl.findById(id);
         if(existingDNA.isPresent()) {
             log.info("Not your first time here dude! The result will be the same!");
@@ -59,31 +64,31 @@ public class DNAService {
         }
 
         final boolean mutant = match(dna);
-        dna.setMutant(mutant);
-        dnaDaoImpl.save(dna);
+        argDna.setMutant(mutant);
+        dnaDaoImpl.save(argDna);
 
         return response(mutant);
     }
 
-    private boolean match(DNA dna) {
+    private boolean match(List<String> dna) {
         int totalSecuences = 0;
 
-        final int horizontalSequences = new HorizontalSequence(dna.getSequence()).isMutant();
+        final int horizontalSequences = new HorizontalSequence(dna).isMutant();
         log.info("HorizontalSequences found: " + horizontalSequences);
         totalSecuences+=horizontalSequences;
         if(totalSecuences >= SEQUENCES_MUTANT) return true;
 
-        final int verticalSequences = new VerticalSequence(dna.getSequence()).isMutant();
+        final int verticalSequences = new VerticalSequence(dna).isMutant();
         log.info("VerticalSequences found : " + verticalSequences);
         totalSecuences+=verticalSequences;
         if(totalSecuences >= SEQUENCES_MUTANT) return true;
 
-        final int diagonalUpSequences = new DiagonalUpSequence(dna.getSequence()).isMutant();
+        final int diagonalUpSequences = new DiagonalUpSequence(dna).isMutant();
         log.info("DiagonalUpSequences found: " + diagonalUpSequences);
         totalSecuences+=diagonalUpSequences;
         if(totalSecuences >= SEQUENCES_MUTANT) return true;
 
-        final int diagonalDownSequences = new DiagonalDownSequence(dna.getSequence()).isMutant();
+        final int diagonalDownSequences = new DiagonalDownSequence(dna).isMutant();
         log.info("DiagonalDownSequences found: " + diagonalDownSequences);
         totalSecuences+=diagonalDownSequences;
         if(totalSecuences >= SEQUENCES_MUTANT) return true;

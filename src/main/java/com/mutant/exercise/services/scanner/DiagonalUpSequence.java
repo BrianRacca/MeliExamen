@@ -12,14 +12,23 @@ public class DiagonalUpSequence extends DNAScanner {
 
     @Override
     public void next() {
+        //Si llego a 0 y el iInicial no es el limite sigo
         if(iCoordinate == 0 && iInicial!=sequence.size()-1) {
             iInicial++;
             iCoordinate=iInicial;
             jCoordinate=0;
+
+            //Reset
+            letter="";
+            iterations=0;
         }else if(iCoordinate == 0 || jCoordinate==sequence.size()-1) {
             iCoordinate=iInicial;
             jInicial++;
             jCoordinate=jInicial;
+
+            //Reset
+            letter="";
+            iterations=0;
         }else {
             iCoordinate--;
             jCoordinate++;
