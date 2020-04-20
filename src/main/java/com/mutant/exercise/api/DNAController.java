@@ -26,16 +26,32 @@ public class DNAController {
         this.dnaService = dnaService;
     }
 
-    @GetMapping
+    /**
+     * Searchs for al DNA objects stored
+     *
+     * @return all sequences stored
+     */
+    @GetMapping("/list")
     public List<DNA> listAllDNA() {
         return dnaService.listAllDNA();
     }
 
+    /**
+     * @param id sequence hashcode
+     * @return DNA Object found (Could be null)
+     */
     @GetMapping("/{id}")
     public DNA find(@PathVariable("id") int id) {
         return dnaService.find(id).orElse(null);
     }
 
+    /**
+     * Searchs for mutant sequences in a DNA
+     *
+     * @param dna JSON format: {"dna": {"ATGC",...}}
+     * @return OK        : MUTANT
+     *         FORBIDDEN : HUMAN
+     */
     @PostMapping
     public ResponseEntity<Void> isMutant(@Valid @NonNull @RequestBody DNA dna) {
         return dnaService.isMutant(dna);

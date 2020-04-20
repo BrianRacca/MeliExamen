@@ -33,7 +33,9 @@ public class DNAStats {
     public DNAStats(){}
 
     /**
-     * @return calculates the ratio of Mutants (Mutants/Humans).
+     * calculates the ratio of Mutants
+     *
+     * @return Mutants/Humans
      */
     public double getRatio() {
         if(humanCount == 0) return mutantCount;

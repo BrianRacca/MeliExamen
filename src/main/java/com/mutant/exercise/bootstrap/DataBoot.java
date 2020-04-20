@@ -7,6 +7,9 @@ import org.springframework.boot.CommandLineRunner;
 
 import java.util.Optional;
 
+/**
+ * Data initalize needed for the application
+ */
 @Component
 public class DataBoot implements CommandLineRunner {
 

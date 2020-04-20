@@ -4,6 +4,9 @@ import com.mutant.exercise.config.DNAProperties;
 
 import java.util.List;
 
+/**
+ * Analyzes DiagonalUp DNA sequences
+ */
 public class DiagonalUpSequence extends DNAScanner {
     @Override
     public boolean hasNext() {

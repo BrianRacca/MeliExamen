@@ -2,6 +2,9 @@ package com.mutant.exercise.services.scanner;
 
 import java.util.List;
 
+/**
+ * Analyzes Horizontal DNA sequences
+ */
 public class HorizontalSequence extends DNAScanner {
     @Override
     public boolean hasNext() {

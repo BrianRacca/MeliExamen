@@ -1,5 +1,6 @@
 package com.mutant.exercise.services;
 
+import com.mutant.exercise.config.DNAProperties;
 import com.mutant.exercise.dao.DNADaoImpl;
 import com.mutant.exercise.exception.DNAValidationException;
 import com.mutant.exercise.model.DNA;
@@ -40,20 +41,31 @@ public class DNAService {
         this.dnaStatsService = dnaStatsService;
     }
 
+    /**
+     * @return all dna sequences stored
+     */
     public List<DNA> listAllDNA() {
         return dnaDaoImpl.findAll();
     }
 
+    /**
+     * @param id hashCode of sequence
+     * @return tries to return the DNA Object found
+     */
     public Optional<DNA> find(int id) {
         return dnaDaoImpl.findById(id);
     }
 
+    /**
+     * process the sequence to know if it is mutant or human
+     *
+     * @param argDna DNA Object
+     * @return Response OK          MUTANT
+     *         Response FORBIDDEN   HUMAN
+     */
     public ResponseEntity<Void> isMutant(DNA argDna) {
         validateDNA(argDna);
-
-        // If the DNA is correct we transform it to upper case
-        List<String> dna = new ArrayList<>();
-        argDna.getSequence().forEach(s -> dna.add(s.toUpperCase()));
+        final List<String> dna = sequenceToUpper(argDna);
 
         // We verify if the DNA was processed before
         final int id = dna.hashCode();
@@ -70,6 +82,22 @@ public class DNAService {
         return response(mutant);
     }
 
+    /**
+     * @param argDna DNA Object
+     * @return  sequence to UPPERCASE
+     */
+    private List<String> sequenceToUpper(DNA argDna) {
+        // If the DNA is correct we transform it to upper case
+        List<String> dna = new ArrayList<>();
+        argDna.getSequence().forEach(s -> dna.add(s.toUpperCase()));
+        return dna;
+    }
+
+    /**
+     * @param dna sequences of dna
+     * @return true: 2 matching sequences or more
+     *         false: less than 2 matches
+     */
     private boolean match(List<String> dna) {
         int totalSecuences = 0;
 
@@ -96,6 +124,11 @@ public class DNAService {
         return false;
     }
 
+    /**
+     * @param mutant if sequence matchs with mutant
+     * @return Response OK if MUTANT
+     *         Response FORBIDDEN if HUMAN
+     */
     private ResponseEntity<Void> response(boolean mutant) {
         if(mutant) {
             log.info("You are a mutant... RESPECT");
@@ -115,6 +148,9 @@ public class DNAService {
      */
     private void validateDNA(DNA dna) {
         final List<String> sequence = dna.getSequence();
+
+        if(dna.getSequence().size()<DNAProperties.MUTANT_ADN_SEQUENCE) throw new DNAValidationException(errorSize);
+
         sequence.stream().allMatch(s -> {
             final boolean notMatch = !pattern.matcher(s).matches();
             final boolean invalidSize = s.length() != sequence.size();

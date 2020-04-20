@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repository of DNA object
+ */
 @Repository
 public interface DNADaoImpl extends CrudRepository<DNA, Integer> {
 

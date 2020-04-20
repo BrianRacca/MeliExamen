@@ -4,6 +4,9 @@ import com.mutant.exercise.config.DNAProperties;
 
 import java.util.List;
 
+/**
+ * Analyzes DiagonalDown DNA sequences
+ */
 public class DiagonalDownSequence extends DNAScanner {
     @Override
     public boolean hasNext() {

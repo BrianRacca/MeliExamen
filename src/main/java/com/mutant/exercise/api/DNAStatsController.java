@@ -18,6 +18,11 @@ public class DNAStatsController {
         this.dnaStatsService= dnaStatsService;
     }
 
+    /**
+     * Returns the stats of human, mutant adn
+     *
+     * @return DNAStats object
+     */
     @GetMapping
     public DNAStats getStats() {
         return dnaStatsService.getStats();

@@ -29,14 +29,24 @@ public class DNA {
 
     public DNA(){}
 
+    /**
+     * @return hashCode of sequence
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * @return secuence of DNA
+     */
     public List<String> getSequence() {
         return sequence;
     }
 
+    /**
+     * @return true: Mutant
+     *         false: Human
+     */
     public boolean isMutant() {
         return mutant;
     }

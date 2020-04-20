@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
+/**
+ * Exception Handler that handles custom Exception
+ */
 @ControllerAdvice
 public class ApiExceptionHandler {
 

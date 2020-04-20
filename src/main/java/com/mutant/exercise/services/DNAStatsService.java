@@ -1,19 +1,11 @@
 package com.mutant.exercise.services;
 
-import com.mutant.exercise.dao.DNADao;
-import com.mutant.exercise.dao.DNADaoImpl;
 import com.mutant.exercise.dao.DNAStatsDaoImpl;
-import com.mutant.exercise.model.DNA;
 import com.mutant.exercise.model.DNAStats;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class DNAStatsService {
@@ -26,14 +18,23 @@ public class DNAStatsService {
         this.dnaStatsDao = dnaStatsDao;
     }
 
+    /**
+     * @return DNAStats object
+     */
     public DNAStats getStats() {
         return dnaStatsDao.findAll().iterator().next();
     }
 
+    /**
+     * calls daoImpl to increment human by 1
+     */
     public void incrementHuman() {
         dnaStatsDao.incrementHuman();
     }
 
+    /**
+     * calls daoImpl to increment mutant by 1
+     */
     public void incrementMutant() {
         dnaStatsDao.incrementMutant();
     }

@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 
+/**
+ * Repository DNAStats object
+ */
 @Repository
 public interface DNAStatsDaoImpl extends JpaRepository<DNAStats, Integer> {
 

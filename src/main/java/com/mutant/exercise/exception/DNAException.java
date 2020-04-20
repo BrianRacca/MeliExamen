@@ -5,6 +5,9 @@ import org.springframework.http.HttpStatus;
 import java.time.ZonedDateTime;
 
 
+/**
+ * Core custom Exception
+ */
 public class DNAException extends RuntimeException {
 
 
