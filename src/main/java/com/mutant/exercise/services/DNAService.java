@@ -21,8 +21,8 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 import static com.mutant.exercise.config.DNAProperties.SEQUENCES_MUTANT;
-import static com.mutant.exercise.exception.DNAValidationException.errorMatch;
-import static com.mutant.exercise.exception.DNAValidationException.errorSize;
+import static com.mutant.exercise.exception.DNAValidationException.ERROR_MATCH;
+import static com.mutant.exercise.exception.DNAValidationException.ERROR_SIZE;
 
 @Service
 public class DNAService {
@@ -149,14 +149,14 @@ public class DNAService {
     private void validateDNA(DNA dna) {
         final List<String> sequence = dna.getSequence();
 
-        if(dna.getSequence().size()<DNAProperties.MUTANT_ADN_SEQUENCE) throw new DNAValidationException(errorSize);
+        if(dna.getSequence().size()<DNAProperties.MUTANT_ADN_SEQUENCE) throw new DNAValidationException(ERROR_SIZE);
 
         sequence.stream().allMatch(s -> {
             final boolean notMatch = !pattern.matcher(s).matches();
             final boolean invalidSize = s.length() != sequence.size();
 
-            if(notMatch) throw new DNAValidationException(errorMatch);
-            if(invalidSize) throw new DNAValidationException(errorSize);
+            if(notMatch) throw new DNAValidationException(ERROR_MATCH);
+            if(invalidSize) throw new DNAValidationException(ERROR_SIZE);
 
             return true;
         } );

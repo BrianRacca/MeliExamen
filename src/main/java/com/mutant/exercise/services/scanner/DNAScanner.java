@@ -7,6 +7,9 @@ import java.util.List;
 
 public abstract class DNAScanner {
 
+    /**
+     *
+     */
     public int iCoordinate;
 
     public int jCoordinate;

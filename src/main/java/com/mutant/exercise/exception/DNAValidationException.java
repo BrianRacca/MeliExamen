@@ -11,8 +11,8 @@ public class DNAValidationException extends DNAException {
 
     private static final long serialVersionUID = 9138142099883351082L;
 
-    public static final String errorSize = "The sequence is not NxN format";
-    public static final String errorMatch = "The sequence is not compatible with ADN sequence [a,c,t,g]";
+    public static final String ERROR_SIZE = "The sequence is not NxN format";
+    public static final String ERROR_MATCH = "The sequence is not compatible with ADN sequence [a,c,t,g]";
 
     public DNAValidationException(String error) {
         super(error, HttpStatus.BAD_REQUEST, ZonedDateTime.now());

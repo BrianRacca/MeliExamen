@@ -27,7 +27,6 @@ public class DNAStats {
     public DNAStats(int humanCount, int mutantCount) {
         this.humanCount = humanCount;
         this.mutantCount = mutantCount;
-        ratio = 0;
     }
 
     public DNAStats(){}

@@ -1,5 +1,7 @@
 package com.mutant.exercise.services.scanner;
 
+import com.mutant.exercise.config.DNAProperties;
+
 import java.util.List;
 
 /**
@@ -13,17 +15,18 @@ public class VerticalSequence extends DNAScanner {
 
     @Override
     public void next() {
-        if(iCoordinate < sequence.size()-1){
-            iCoordinate++;
-        }
-        else {
-            jCoordinate++;
-            iCoordinate=0;
+        if(iterations<=1 && (sequence.size()-1-iCoordinate) < DNAProperties.MUTANT_ADN_SEQUENCE-1) resetNext();
+        else if(iCoordinate < sequence.size()-1) iCoordinate++;
+        else resetNext();
+    }
 
-            //Reset
-            iterations=0;
-            letter="";
-        }
+    public void resetNext() {
+        jCoordinate++;
+        iCoordinate=0;
+
+        //Reset
+        iterations=0;
+        letter="";
     }
 
     @Override

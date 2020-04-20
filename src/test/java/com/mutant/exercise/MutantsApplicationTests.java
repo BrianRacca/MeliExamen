@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -41,8 +42,12 @@ class MutantsApplicationTests {
 	void contextLoads() {
 	}
 
+    /**
+     * @throws Exception if something went wrong
+     * @test sequence example MercadoLibreExam
+     */
 	@Test
-	void testMutant01() throws Exception {
+	void testMutantMeliExample() throws Exception {
 		final String request = "{\n"+
 				"\"dna\": " +
 				"        [\"ATGCGA\",\n" +
@@ -54,16 +59,15 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isOk());
-	}
+        isMutantRequest(request, status().isOk());
+    }
 
 	/**
 	 * @throws Exception if something went wrong
 	 * @test sequence with several sequences horizontal and vertical
 	 */
 	@Test
-	void testMutant02() throws Exception {
+	void testMutantHoriontalAndVertical() throws Exception {
 		final String request = "{\n"+
 				"\"dna\": " +
 				"        [\"ATGCGAATGCGA\",\n" +
@@ -81,37 +85,35 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isOk());
-	}
+        isMutantRequest(request, status().isOk());
+    }
 
 	/**
 	 * @throws Exception if something went wrong
 	 * @test sequence with 2 sequences horizontal
 	 */
 	@Test
-	void testMutant03() throws Exception {
+	void testMutantTwoHorizontals() throws Exception {
 		final String request = "{\n"+
 				"\"dna\": " +
 				"        [\"ATGCGA\",\n" +
 				"         \"CAGTGC\",\n" +
 				"         \"TTTTGT\",\n" +
 				"         \"AGAAGG\",\n" +
-				"         \"CCCCTA\",\n" +
+				"         \"AACCCC\",\n" +
 				"         \"TCACTG\"" +
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isOk());
-	}
+        isMutantRequest(request, status().isOk());
+    }
 
 	/**
 	 * @throws Exception if something went wrong
 	 * @test sequence with 2 sequences vertical
 	 */
 	@Test
-	void testMutant04() throws Exception {
+	void testMutantTwoVerticals() throws Exception {
 		final String request = "{\n"+
 				"\"dna\": " +
 				"        [\"ATGTGA\",\n" +
@@ -123,16 +125,15 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isOk());
-	}
+        isMutantRequest(request, status().isOk());
+    }
 
 	/**
 	 * @throws Exception if something went wrong
 	 * @test sequence with 2 sequences diagonalUp
 	 */
 	@Test
-	void testMutant05() throws Exception {
+	void testMutantTwoDiagonalUp() throws Exception {
 		final String request = "{\n"+
 				"\"dna\": " +
 				"        [\"ATGAGA\",\n" +
@@ -144,16 +145,15 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isOk());
-	}
+        isMutantRequest(request, status().isOk());
+    }
 
 	/**
 	 * @throws Exception if something went wrong
 	 * @test sequence with 2 sequences diagonalDown
 	 */
 	@Test
-	void testMutant06() throws Exception {
+	void testMutantTwoDiagonalDown() throws Exception {
 		final String request = "{\n"+
 				"\"dna\": " +
 				"        [\"ATGAGA\",\n" +
@@ -165,16 +165,15 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isOk());
-	}
+        isMutantRequest(request, status().isOk());
+    }
 
 	/**
 	 * @throws Exception if something went wrong
 	 * @test sequence with 1 sequences horizontal and 1 diagonalDown
 	 */
 	@Test
-	void testMutant07() throws Exception {
+	void testMutantHorizontalAndDiagonalDown() throws Exception {
 		final String request = "{\n"+
 				"\"dna\": " +
 				"        [\"ATGAGA\",\n" +
@@ -186,16 +185,15 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isOk());
-	}
+        isMutantRequest(request, status().isOk());
+    }
 
 	/**
 	 * @throws Exception if something went wrong
 	 * @test sequence with 1 sequences vertical and 1 diagonalUp
 	 */
 	@Test
-	void testMutant08() throws Exception {
+	void testMutantVerticalAndDiagonalUp() throws Exception {
 		final String request = "{\n"+
 				"\"dna\": " +
 				"        [\"ATGAGA\",\n" +
@@ -207,18 +205,16 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isOk());
-	}
+        isMutantRequest(request, status().isOk());
+    }
 
 	/**
 	 * @throws Exception if something went wrong
 	 * @test 2 sequences of the same adn (2 horizontal Mutant) and check only 1 was inserted !!!
 	 */
 	@Test
-	void testMutant09() throws Exception {
-		final ResultActions firstResult = mvc.perform(MockMvcRequestBuilders.get("/mutant/list"))
-				.andExpect(status().isOk());
+	void testSameMutantNotRepetead() throws Exception {
+		final ResultActions firstResult = listRequest(status().isOk());
 
 		final String firstJson = firstResult.andReturn().getResponse().getContentAsString();
 		final List<DNA> firstList = objectMapper.readValue(firstJson, List.class);
@@ -234,10 +230,9 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isOk());
+		isMutantRequest(request, status().isOk());
 
-		final String request2 = "{\n" +
+        final String request2 = "{\n" +
 				"\"dna\": " +
 				"        [\"ATgCGA\",\n" +
 				"         \"CAGTGC\",\n" +
@@ -247,11 +242,10 @@ class MutantsApplicationTests {
 				"         \"TCTTTT\"" +
 				"        ]\n" +
 				"}";
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request2))
-				.andExpect(status().isOk());
 
-		final ResultActions lastResult = mvc.perform(MockMvcRequestBuilders.get("/mutant/list"))
-				.andExpect(status().isOk());
+        isMutantRequest(request2, status().isOk());
+
+		final ResultActions lastResult = listRequest(status().isOk());
 
 		final String lastJson = lastResult.andReturn().getResponse().getContentAsString();
 		final List<DNA> lastList = objectMapper.readValue(lastJson, List.class);
@@ -271,9 +265,8 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isForbidden());
-	}
+        isMutantRequest(request, status().isForbidden());
+    }
 
 	@Test
 	void testHuman02() throws Exception {
@@ -289,11 +282,10 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isForbidden());
-	}
+        isMutantRequest(request, status().isForbidden());
+    }
 
-	@Test
+    @Test
 	void testHuman03() throws Exception {
 		final String request = "{\n"+
 				"\"dna\": " +
@@ -305,9 +297,8 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isForbidden());
-	}
+        isMutantRequest(request, status().isForbidden());
+    }
 
 
 	/**
@@ -326,9 +317,8 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isForbidden());
-	}
+        isMutantRequest(request, status().isForbidden());
+    }
 
 	/**
 	 * @throws Exception if something went wrong
@@ -346,9 +336,8 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isForbidden());
-	}
+        isMutantRequest(request, status().isForbidden());
+    }
 
 	/**
 	 * @throws Exception if something went wrong
@@ -366,9 +355,8 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isForbidden());
-	}
+        isMutantRequest(request, status().isForbidden());
+    }
 
 	/**
 	 * @throws Exception if something went wrong
@@ -386,9 +374,8 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isForbidden());
-	}
+        isMutantRequest(request, status().isForbidden());
+    }
 
 	/**
 	 * @throws Exception if something went wrong
@@ -404,11 +391,10 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		final ResultActions resultActions = mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isBadRequest());
+		final ResultActions resultActions = isMutantRequest(request, status().isBadRequest());
 
 		final String result = resultActions.andReturn().getResponse().getContentAsString();
-		assertThat(result.contains(DNAValidationException.errorSize)).isTrue();
+		assertThat(result.contains(DNAValidationException.ERROR_SIZE)).isTrue();
 	}
 
 	/**
@@ -427,11 +413,10 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		final ResultActions resultActions = mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isBadRequest());
+		final ResultActions resultActions = isMutantRequest(request, status().isBadRequest());
 
 		final String result = resultActions.andReturn().getResponse().getContentAsString();
-		assertThat(result.contains(DNAValidationException.errorMatch)).isTrue();
+		assertThat(result.contains(DNAValidationException.ERROR_MATCH)).isTrue();
 	}
 
 	/**
@@ -450,9 +435,8 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isOk());
-	}
+        isMutantRequest(request, status().isOk());
+    }
 
 	/**
 	 * @throws Exception
@@ -468,11 +452,10 @@ class MutantsApplicationTests {
 				"        ]\n" +
 				"}";
 
-		final ResultActions resultActions = mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
-				.andExpect(status().isBadRequest());
+		final ResultActions resultActions = isMutantRequest(request, status().isBadRequest());
 
 		final String result = resultActions.andReturn().getResponse().getContentAsString();
-		assertThat(result.contains(DNAValidationException.errorSize)).isTrue();
+		assertThat(result.contains(DNAValidationException.ERROR_SIZE)).isTrue();
 	}
 
 	/**
@@ -481,19 +464,54 @@ class MutantsApplicationTests {
 	 */
 	@Test
 	void testStats() throws Exception {
-		testMutant01();
+		final ResultActions firstResultActions = getStatsRequestOk();
+
+		final String firstJson = firstResultActions.andReturn().getResponse().getContentAsString();
+		final DNAStats firsStats = objectMapper.readValue(firstJson, DNAStats.class);
+
+		testMutantMeliExample();
 		testHuman01();
 		testHuman02();
 
-		final ResultActions resultActions = mvc.perform(MockMvcRequestBuilders.get("/stats").accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk());
+		final ResultActions resultActions = getStatsRequestOk();
 
 		final String json = resultActions.andReturn().getResponse().getContentAsString();
 		final DNAStats stats = objectMapper.readValue(json, DNAStats.class);
 
-		assertThat(stats.getHumanCount()).isEqualTo(2);
-		assertThat(stats.getMutantCount()).isEqualTo(1);
-		assertThat(stats.getRatio()).isEqualTo(0.5);
+		assertThat(stats.getHumanCount()).isEqualTo(firsStats.getHumanCount()+2);
+		assertThat(stats.getMutantCount()).isEqualTo(firsStats.getMutantCount()+1);
+		assertThat(stats.getRatio()).isEqualTo((double)stats.getMutantCount()/(double)stats.getHumanCount());
 	}
 
+	/**
+	 * Search for stats of human and mutant
+	 *
+	 * @return DNAStats request
+	 * @throws Exception
+	 */
+    private ResultActions getStatsRequestOk() throws Exception {
+        return mvc.perform(MockMvcRequestBuilders.get("/stats").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+	/**
+	 * @param request DNA sequence
+	 * @param status Expected result
+	 * @return
+	 * @throws Exception
+	 */
+    private ResultActions isMutantRequest(String request, ResultMatcher status) throws Exception {
+        return mvc.perform(MockMvcRequestBuilders.post("/mutant").contentType(MediaType.APPLICATION_JSON).content(request))
+                .andExpect(status);
+    }
+
+	/**
+	 * @param status Expected result
+	 * @return	list of DNA
+	 * @throws Exception
+	 */
+    private ResultActions listRequest(ResultMatcher status) throws Exception {
+		return mvc.perform(MockMvcRequestBuilders.get("/mutant/list"))
+				.andExpect(status);
+	}
 }
