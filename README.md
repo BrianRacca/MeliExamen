@@ -30,7 +30,7 @@ returns ->          stats of mutant && humans stored in JSON format
 
 # APP INFO
 
-Prod Url : https://pacific-sands-32569.herokuapp.com/
+Prod Url : https://ancient-cove-74417.herokuapp.com/
 
 Important information: The dynos of heroku might be hibernating, with one request the app will be up in a few minutes
 
