@@ -72,14 +72,14 @@ public class DNAService {
         final Optional<DNA> existingDNA = dnaDaoImpl.findById(id);
         if(existingDNA.isPresent()) {
             log.info("Not your first time here dude! The result will be the same!");
-            return response(existingDNA.get().isMutant());
+            return response(existingDNA.get().isMutant(), false);
         }
 
         final boolean mutant = match(dna);
         argDna.setMutant(mutant);
         dnaDaoImpl.save(argDna);
 
-        return response(mutant);
+        return response(mutant, true);
     }
 
     /**
@@ -130,15 +130,15 @@ public class DNAService {
      * @return Response OK if MUTANT
      *         Response FORBIDDEN if HUMAN
      */
-    private ResponseEntity<Void> response(boolean mutant) {
+    private ResponseEntity<Void> response(boolean mutant, boolean update) {
         if(mutant) {
             log.info("You are a mutant... RESPECT");
-            dnaStatsService.incrementMutant();
+            if(update)dnaStatsService.incrementMutant();
             return ResponseEntity.ok().build();
         }
         else {
             log.info("You mere human... you will be destroyed by magneto");
-            dnaStatsService.incrementHuman();
+            if(update)dnaStatsService.incrementHuman();
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
     }
