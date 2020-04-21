@@ -22,15 +22,17 @@ returns ->          list of sequences in JSON format
 
 ```
 
-* ../stats            no arg
+* ../stats
 ```
+no arg
+
 returns ->          stats of mutant && humans stored in JSON format
 
 ```
 
 # APP INFO
 
-Prod Url : https://ancient-cove-74417.herokuapp.com/
+Prod Url : https://ancient-cove-74417.herokuapp.com/swagger-ui.html
 
 Important information: The dynos of heroku might be hibernating, with one request the app will be up in a few minutes
 

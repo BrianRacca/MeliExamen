@@ -39,15 +39,6 @@ public class DNAController {
     }
 
     /**
-     * @param id sequence hashcode
-     * @return DNA Object found (Could be null)
-     */
-    @GetMapping("/{id}")
-    public DNA find(@PathVariable("id") int id) {
-        return dnaService.find(id).orElse(null);
-    }
-
-    /**
      * Searchs for mutant sequences in a DNA
      *
      * @param dna JSON format: {"dna": {"ATGC",...}}
@@ -55,7 +46,6 @@ public class DNAController {
      *         FORBIDDEN : HUMAN
      */
     @PostMapping
-    @ApiParam(example = "{ 'dna': [AAAA][GGGG][TTTT][CCCC] }")
     public ResponseEntity<Void> isMutant(@Valid @NonNull @RequestBody DNA dna) {
         return dnaService.isMutant(dna);
     }
