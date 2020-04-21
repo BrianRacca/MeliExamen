@@ -15,11 +15,16 @@ public class VerticalSequence extends DNAScanner {
 
     @Override
     public void next() {
+        //If we know we are not going to find next sequence we skip to next Coordinate
         if(iterations<=1 && (sequence.size()-1-iCoordinate) < DNAProperties.MUTANT_ADN_SEQUENCE-1) resetNext();
+             //Next line
         else if(iCoordinate < sequence.size()-1) iCoordinate++;
         else resetNext();
     }
 
+    /**
+     * next coordinate
+     */
     @Override
     public void resetNext() {
         jCoordinate++;

@@ -15,12 +15,16 @@ public class HorizontalSequence extends DNAScanner {
 
     @Override
     public void next() {
-        if(iterations<=1 && (sequence.size()-1-jCoordinate) < DNAProperties.MUTANT_ADN_SEQUENCE-1) {
-            resetNext();
-        }else if(jCoordinate < sequence.size()-1) jCoordinate++;
-              else resetNext();
+        //If we know we are not going to find next sequence we skip to next Coordinate
+        if(iterations<=1 && (sequence.size()-1-jCoordinate) < DNAProperties.MUTANT_ADN_SEQUENCE-1) resetNext();
+             // next column
+        else if(jCoordinate < sequence.size()-1) jCoordinate++;
+        else resetNext();
     }
 
+    /**
+     * next coordinate
+     */
     @Override
     public void resetNext() {
         iCoordinate++;

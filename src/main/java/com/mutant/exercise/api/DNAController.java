@@ -2,6 +2,8 @@ package com.mutant.exercise.api;
 
 import com.mutant.exercise.model.DNA;
 import com.mutant.exercise.services.DNAService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
@@ -53,6 +55,7 @@ public class DNAController {
      *         FORBIDDEN : HUMAN
      */
     @PostMapping
+    @ApiParam(example = "{ 'dna': [AAAA][GGGG][TTTT][CCCC] }")
     public ResponseEntity<Void> isMutant(@Valid @NonNull @RequestBody DNA dna) {
         return dnaService.isMutant(dna);
     }

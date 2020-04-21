@@ -101,7 +101,6 @@ public class DNAService {
     private boolean match(List<String> dna) {
         int totalSecuences = 0;
 
-        /*
         final int horizontalSequences = new HorizontalSequence(dna).isMutant();
         log.info("HorizontalSequences found: " + horizontalSequences);
         totalSecuences+=horizontalSequences;
@@ -116,7 +115,6 @@ public class DNAService {
         log.info("DiagonalUpSequences found: " + diagonalUpSequences);
         totalSecuences+=diagonalUpSequences;
         if(totalSecuences >= SEQUENCES_MUTANT) return true;
-        */
 
         final int diagonalDownSequences = new DiagonalDownSequence(dna).isMutant();
         log.info("DiagonalDownSequences found: " + diagonalDownSequences);

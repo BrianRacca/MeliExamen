@@ -10,29 +10,27 @@ import java.util.List;
 public class DiagonalUpSequence extends DNAScanner {
     @Override
     public boolean hasNext() {
-        return !(iCoordinate == sequence.size()-1 && jCoordinate == DNAProperties.MUTANT_ADN_SEQUENCE-1);
+        return !(iCoordinate == sequence.size()-1 && jCoordinate == sequence.size()- (DNAProperties.MUTANT_ADN_SEQUENCE-1));
     }
 
     @Override
     public void next() {
-        //Skip to nextline if no iterations were found and iInicial is at it´s limit and we haven´t found more than 1 iteration
-        if(iInicial == sequence.size()-1 && iCoordinate-jCoordinate < DNAProperties.MUTANT_ADN_SEQUENCE-1 && iterations<1){
-            nextLine();
-            return;
-        }
-        //If i reach 0 and iInicial it´s not the limit so i continue
+        //When we reach iCoordinate 0 and iInicial is yet available to increase, Next Diagonal Coordinate (Ej: iInicial=3; sequence.size.lastIndex=4; [0][3] -> [4][0])
         if(iCoordinate == 0 && iInicial!=sequence.size()-1) {
-            resetNext();
-            reset();
-        //When i reach the extreme diagonal of the matrix i have to start going down again with jCoordinate++
-        }else if(iCoordinate == 0 || jCoordinate==sequence.size()-1) {
-            nextLine();
-            reset();
+            iInicial++;
+            iCoordinate=iInicial;
+            jCoordinate=0;
 
-              //Skip to next line before we reach the iCoordinate limit and jCoordinate starts to move right
-        }else if(iCoordinate< DNAProperties.MUTANT_ADN_SEQUENCE-1 && iterations <=1) resetNext();
-        else {
-            //How to move in diagonalUp Sequence
+            reset();
+              //Next diagonal Coordinate when we reached limit iCoordinate 0 or jCoordinate last value of Array (Ej: iInicial=sequence.size.lastIndex; sequence.size.lastIndex=4; [0][4] -> [4][1])
+        }else if(iCoordinate == 0 || jCoordinate==sequence.size()-1) {
+            iCoordinate=iInicial;
+            jInicial++;
+            jCoordinate=jInicial;
+
+            reset();
+         //Next Coordinate IN diagonal
+        }else {
             iCoordinate--;
             jCoordinate++;
         }
